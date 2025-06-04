@@ -1,4 +1,3 @@
-
 import streamlit as st
 
 def calculate_dredging_unit_rate(params):
@@ -31,7 +30,9 @@ def calculate_dredging_unit_rate(params):
     depreciation_allocation = (new_build_value / depreciation_period) * (project_days / 365)
     financing_allocation = (new_build_value * financing_rate) * (project_days / 365)
 
-    direct_costs = fuel_cost_total + labor_cost_total + maintenance_cost_total + disposal_cost_total + mobilization_cost + demobilization_cost + workboat_cost + pipeline_total_cost + depreciation_allocation + financing_allocation
+    direct_costs = (fuel_cost_total + labor_cost_total + maintenance_cost_total + disposal_cost_total +
+                    mobilization_cost + demobilization_cost + workboat_cost + pipeline_total_cost +
+                    depreciation_allocation + financing_allocation)
     overhead_cost = direct_costs * overhead_markup
     total_cost = direct_costs + overhead_cost
     unit_rate = total_cost / total_volume
@@ -40,15 +41,15 @@ def calculate_dredging_unit_rate(params):
 
 st.title('Dredging Unit Rate Calculator')
 
-dredger_type = st.selectbox('Dredger Type', ['CSD', 'TSHD'])
+# Input fields
 production_rate = st.number_input('Production Rate (m³/hr)', value=2000)
 fuel_consumption = st.number_input('Fuel Consumption (l/hr)', value=500)
-fuel_price = st.number_input('Fuel Price (€ per liter)', value=2.0)
+fuel_price = st.number_input('Fuel Price (€/l)', value=2.0)
 labor_cost = st.number_input('Labor Cost (€/hr)', value=500)
-maintenance_percent = st.number_input('Maintenance Percentage (%)', value=0.3) / 100
+maintenance_percent = st.number_input('Maintenance Percentage (%)', value=0.3)/100
 new_build_value = st.number_input('New Build Value (€)', value=10000000)
 disposal_cost = st.number_input('Disposal Cost (€/m³)', value=0.2)
-overhead_markup = st.number_input('Overhead Markup (%)', value=5) / 100
+overhead_markup = st.number_input('Overhead Markup (%)', value=5)/100
 mobilization_cost = st.number_input('Mobilization Cost (€)', value=500000)
 demobilization_cost = st.number_input('Demobilization Cost (€)', value=500000)
 workboat_rental_days = st.number_input('Workboat Rental Days', value=100)
@@ -56,7 +57,7 @@ workboat_daily_rate = st.number_input('Workboat Daily Rate (€)', value=10000)
 pipeline_length = st.number_input('Pipeline Length (m)', value=2000)
 pipeline_cost_per_meter = st.number_input('Pipeline Cost per Meter (€)', value=600)
 depreciation_period = st.number_input('Depreciation Period (years)', value=20)
-financing_rate = st.number_input('Financing Rate (%)', value=7) / 100
+financing_rate = st.number_input('Financing Rate (%)', value=7)/100
 
 if st.button('Calculate Unit Rate'):
     params = {
